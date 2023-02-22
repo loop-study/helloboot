@@ -1,8 +1,8 @@
 ### hello
-GET http://localhost:8080/hello?name=boot
+GET http://localhost:8080/hello?name=spring boot
 
 
 ### user
-GET http://localhost:8080/user
+GET http://localhost:8080/
 
 
