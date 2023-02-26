@@ -11,7 +11,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 @Configuration
 @ComponentScan
 public class HellobootApplication {
-    // 아래가 없으면 실행 안되는 이유는? 강의 잘 따라가면 됨.
     @Bean
     public ServletWebServerFactory servletWebServerFactory() {
         return new TomcatServletWebServerFactory();
@@ -24,7 +23,6 @@ public class HellobootApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HellobootApplication.class, args);
-//        MySpringApplication.run(HellobootApplication.class, args);    // 더 뛰어난 스프링부트의 메서드로 교체
     }
 
 }
