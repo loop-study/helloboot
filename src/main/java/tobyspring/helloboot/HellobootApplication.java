@@ -1,18 +1,17 @@
 package tobyspring.helloboot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServer;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
 @ComponentScan
 public class HellobootApplication {
+    // 아래가 없으면 실행 안되는 이유는? 강의 잘 따라가면 됨.
     @Bean
     public ServletWebServerFactory servletWebServerFactory() {
         return new TomcatServletWebServerFactory();
@@ -24,26 +23,8 @@ public class HellobootApplication {
     }
 
     public static void main(String[] args) {
-        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
-            @Override
-            protected void onRefresh() {
-                // 생략하면 안됨. GenericWebApplicationContext에서 추가적인 작업을 하기 때문.
-                super.onRefresh();
-
-                ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
-                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-//                dispatcherServlet.setApplicationContext(this); // 지정안해도 잘 돌아감. -> 스프링 컨테이너가 주입해줌. 빈의 라이프사이클을 이해필요.
-
-                WebServer webServer = serverFactory.getWebServer(servletContext -> {
-                    servletContext.addServlet("dispatcherServlet", dispatcherServlet)
-                            .addMapping("/*");
-                });
-
-                webServer.start();
-            }
-        };
-        applicationContext.register(HellobootApplication.class);
-        applicationContext.refresh();
+        SpringApplication.run(HellobootApplication.class, args);
+//        MySpringApplication.run(HellobootApplication.class, args);    // 더 뛰어난 스프링부트의 메서드로 교체
     }
 
 }
